@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HomeForm.qml</file>
+        <file>register.qml</file>
+        <file>createRM.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>login.qml</file>
+        <file>rekamMedisList.qml</file>
+        <file>rekamMedisDetail.qml</file>
+        <file>settings.qml</file>
+        <file>SelectFile.qml</file>
+    </qresource>
+</RCC>

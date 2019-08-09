@@ -80,7 +80,7 @@ QString User::getDomain()
         return setting.value("domain").toString();
     }
     else{
-        return "http://localhost:8000";
+        return "https://rekam-medis.azurewebsites.net";
     }
 }
 

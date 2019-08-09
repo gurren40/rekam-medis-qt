@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 
 Page {
     anchors.fill: parent
-    padding: 20
+    verticalPadding: 20
     title: qsTr("Hitung Dosis")
     ColumnLayout{
         anchors.fill: parent
@@ -18,9 +18,13 @@ Page {
                 width: parent.width
                 Label{
                     text: "Tegangan : "
+                    leftPadding: 20
+                    rightPadding: 20
                 }
                 TextField {
                     id:tegangan
+                    leftPadding: 20
+                    rightPadding: 20
                     placeholderText: "Tegangan"
                     text: "0"
                     width: parent.width
@@ -32,10 +36,14 @@ Page {
                     }
                 }
                 Label{
+                    leftPadding: 20
+                    rightPadding: 20
                     text: "Arus Waktu (mAs) : "
                 }
                 TextField {
                     id:mAs
+                    leftPadding: 20
+                    rightPadding: 20
                     placeholderText: "mAs"
                     text: "0"
                     width: parent.width
@@ -48,9 +56,13 @@ Page {
                 }
                 Label{
                     text: "BSF : "
+                    leftPadding: 20
+                    rightPadding: 20
                 }
                 TextField {
                     id : bsf
+                    leftPadding: 20
+                    rightPadding: 20
                     placeholderText: "BSF"
                     text: "0"
                     width: parent.width
@@ -63,9 +75,13 @@ Page {
                 }
                 Label{
                     text: "DAP : "
+                    leftPadding: 20
+                    rightPadding: 20
                 }
                 TextField {
                     id : dap
+                    leftPadding: 20
+                    rightPadding: 20
                     placeholderText: "DAP"
                     text: "0"
                     width: parent.width

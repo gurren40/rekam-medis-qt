@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 
 Page {
     anchors.fill: parent
-    padding: 20
+    verticalPadding: 20
     title: qsTr("Pengaturan")
     ColumnLayout{
         anchors.fill: parent
@@ -16,13 +16,14 @@ Page {
             Column{
                 spacing: 10
                 width: parent.width
-                ItemDelegate{
-                    text: "Sebuah Pengaturan"
-                    width: parent.width
-                }
                 SwitchDelegate{
-                    text: "Mode Gelap"
+                    id : notifswitch
+                    checked: user.enableNotify
+                    text: "Notifikasi Di Aplikasi"
                     width: parent.width
+                    onCheckedChanged: {
+                        user.enableNotify = notifswitch.checked
+                    }
                 }
             }
         }

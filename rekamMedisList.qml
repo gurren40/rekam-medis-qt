@@ -5,7 +5,7 @@ import RekamMedis 1.0
 
 Page {
     anchors.fill: parent
-    padding: 20
+    topPadding: 10
     title: qsTr("Rekam Medis")
     Timer{
         interval: 1000
@@ -47,7 +47,7 @@ Page {
                     Label{
                         font.bold: false
                         font.pointSize: 10
-                        text : "Dosis : "+model.OutputRadiasi
+                        text : "Alamat : "+model.Alamat
                         enabled: false
                     }
                 }

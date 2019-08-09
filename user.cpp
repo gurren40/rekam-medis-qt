@@ -2,7 +2,7 @@
 
 User::User(QObject *parent) : QObject(parent)
 {
-
+    notifyMessage = "";
 }
 
 void User::setNetworkManager(QNetworkAccessManager *netmgr)
@@ -126,7 +126,10 @@ void User::createUser(QVariant username, QVariant password)
     QString urlString = getDomain()+"/UserAPI/create";
     QUrl url(urlString);
     request.setUrl(url);
-    m_networkCreateUserReply = m_networkManager->post(request,"username=\""+username.toString().toUtf8()+"\"&password=\""+password.toString().toUtf8()+"\"");
+    QByteArray data;
+    data.append("username="+username.toString().toUtf8()+"&");
+    data.append("password="+password.toString().toUtf8());
+    m_networkCreateUserReply = m_networkManager->post(request,data);
     connect(m_networkCreateUserReply,&QNetworkReply::finished,this,&User::userCreated);
 }
 
@@ -138,6 +141,35 @@ void User::userCreated()
     emit notify(jsonDoc.object()["status"].toString());
     m_networkCreateUserReply->disconnect();
     m_networkCreateUserReply->deleteLater();
+}
+
+void User::notify(QString status)
+{
+    notifyMessage = status;
+    emit notifySig();
+}
+
+QString User::getNotify()
+{
+    return notifyMessage;
+}
+
+bool User::enableNotify()
+{
+    QSettings setting;
+    if(!setting.contains("enableInternalNotification")){
+        return false;
+    }
+    else{
+        return setting.value("enableInternalNotification").toBool();
+    }
+}
+
+void User::setEnableNotify(QVariant notify)
+{
+    QSettings setting;
+    setting.setValue("enableInternalNotification",notify.toBool());
+    emit enableNotifySig();
 }
 
 void User::logOut(){

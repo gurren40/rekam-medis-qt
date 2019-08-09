@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>HomeForm.qml</file>
         <file>register.qml</file>
         <file>createRM.qml</file>
         <file>qtquickcontrols2.conf</file>
@@ -11,5 +10,8 @@
         <file>settings.qml</file>
         <file>SelectFile.qml</file>
         <file>hitung.qml</file>
+        <file>FilePicker.qml</file>
+        <file>utils.js</file>
+        <file>SelectFile2.qml</file>
     </qresource>
 </RCC>

@@ -3,6 +3,7 @@ QT += quick
 QT += quickcontrols2
 QT += websockets
 QT += svg
+QT += widgets
 QT += network
 CONFIG += c++11
 
@@ -46,6 +47,9 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     ANDROID_EXTRA_LIBS = \
         $$PWD/ssl/arm/libcrypto.so \
         $$PWD/ssl/arm/libssl.so
+
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
 }
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
@@ -53,3 +57,12 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         $$PWD/ssl/arm/libcrypto.so \
         $$PWD/ssl/arm/libssl.so
 }
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml

@@ -99,7 +99,7 @@ Page {
                     validator: DoubleValidator{}
                 }
                 Label {
-                    text: qsTr("Output Radias :")
+                    text: qsTr("Output Radiasi :")
                 }
                 TextField{
                     id : outputRadiasi
@@ -129,14 +129,27 @@ Page {
                     text: qsTr("Gambar :")
                 }
                 Button{
-                    text: "Pilih gambar"
+                    text: "Pilih Gambar"
                     onClicked: {
                         stackView.push("SelectFile.qml")
+                        //window.uploadImageURL = rekamMedisLists.getFileUrl()
                     }
                 }
                 Label {
+                    visible: false
                     id : gambar
                     text: window.uploadImageURL
+                }
+
+                Image {
+                    visible: (window.uploadImageURL === "") ? false : true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    id: gambarpreview
+                    width: parent.width
+                    height: parent.width
+                    asynchronous: true
+                    fillMode: Image.PreserveAspectFit
+                    source: window.uploadImageURL
                 }
 
                 Row{
@@ -146,7 +159,6 @@ Page {
                         id: buatButton
                         text: "Buat"
                         onClicked: {
-                            alert.open()
                             rekamMedisLists.createNewRekamMedis(nama.text,nik.text,umur.text,jk.currentText,alamat.text,tegangan.text,mAs.text,mGy.text,outputRadiasi.text,esak.text,dap.text,gambar.text)
                             stackView.pop()
                         }
@@ -157,21 +169,6 @@ Page {
                         onClicked: stackView.pop()
                     }
                 }
-            }
-        }
-        Dialog{
-            id : alert
-            modal: true
-            anchors.centerIn: parent
-            title: "Alert"
-            contentItem: Label{
-                id : alertlabel
-                text: "Berhasil Dibuat"
-            }
-            standardButtons: Dialog.Ok
-            onAccepted: {
-                console.log("berhasil dibuat")
-                stackView.pop()
             }
         }
     }

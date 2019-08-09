@@ -110,5 +110,8 @@
         <file>icons/witchcraft/navigation/plus.svg</file>
         <file>icons/witchcraft/24x24S/witchcraft.svg</file>
         <file>icons/witchcraft/24x24S/download.svg</file>
+        <file>image/logo.png</file>
+        <file>icons/ic_folder_open_black_48dp.png</file>
+        <file>icons/ic_insert_drive_file_black_48dp.png</file>
     </qresource>
 </RCC>

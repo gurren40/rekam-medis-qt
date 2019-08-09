@@ -8,12 +8,44 @@ ApplicationWindow {
     height: 480
     title: "Rekam Medis"
     property bool isKeyValid: user.isLoggedIn
-    property string uploadImageURL: "URL gambar"
+    property string uploadImageURL: ""
+    property string notify: user.notify
 
     function logOut(){
         drawer.close()
         user.logOut()
         stackView.replace("login.qml")
+    }
+
+    Dialog{
+        id : notifyDialog
+        modal: true
+        anchors.centerIn: parent
+        title: "Notifikasi"
+        contentItem: Label{
+            id : alertlabel
+            text: window.notify
+        }
+        standardButtons: Dialog.Ok
+        onAccepted: {
+            console.log("berhasil dibuat")
+            stackView.pop()
+        }
+    }
+
+    onNotifyChanged: {
+        if(user.enableNotify){
+            notifyDialog.open()
+        }
+    }
+
+    Shortcut {
+        sequences: ["Esc", "Back"]
+        onActivated: {
+            if(stackView.depth > 1){
+                stackView.pop()
+            }
+        }
     }
 
     onIsKeyValidChanged:{
@@ -42,6 +74,7 @@ ApplicationWindow {
         Label {
             text: stackView.currentItem.title
             anchors.centerIn: parent
+            font.bold: true
         }
 
         ToolButton {
@@ -64,6 +97,10 @@ ApplicationWindow {
         Column {
             anchors.fill: parent
 
+            ItemDelegate {
+                text: user.username
+                width: parent.width
+            }
             ItemDelegate {
                 text: qsTr("Masukkan Rekam Medis")
                 width: parent.width
@@ -96,7 +133,7 @@ ApplicationWindow {
                 }
             }
             ItemDelegate {
-                text: qsTr("Exit")
+                text: qsTr("Keluar")
                 width: parent.width
                 onClicked: {
                     Qt.quit()

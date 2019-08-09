@@ -110,6 +110,9 @@ public slots:
     void createNewRekamMedis(QVariant Nama, QVariant NIK, QVariant Umur, QVariant JK, QVariant Alamat, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile);
     void rekamMedisCreated();
 
+    //hapus data
+    void clearItemsData();
+
 private:
     QVector<RekamMedisItem> mItems;
     RekamMedisItem mItem;

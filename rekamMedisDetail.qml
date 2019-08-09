@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 Page {
     id : rekamMedisDetail
     anchors.fill: parent
-    padding: 20
+    verticalPadding: 20
     title: qsTr("Detail Rekam Medis")
     property int itemID: 0
     property string jenisKelamin: !rekamMedisLists.JK ? "Pria" : "Wanita"
@@ -31,6 +31,7 @@ Page {
                 Label {
                     text: "Profil Pasien"
                     anchors.horizontalCenter: parent.horizontalCenter
+                    font.bold: true
                 }
                 ItemDelegate {
                     width: parent.width
@@ -123,6 +124,7 @@ Page {
                 }
                 Label {
                     text: "Data Pemeriksaan"
+                    font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 ItemDelegate {
@@ -167,7 +169,7 @@ Page {
                         Label{
                             font.bold: false
                             font.pointSize: 10
-                            text : "INAK"
+                            text : "mGy"
                             enabled: false
                         }
                         Label{
@@ -184,11 +186,28 @@ Page {
                         Label{
                             font.bold: false
                             font.pointSize: 10
+                            text : "INAK"
+                            enabled: false
+                        }
+                        Label{
+                            text: rekamMedisLists.INAK
+                            font.bold: true
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: false
+                            font.pointSize: 10
                             text : "Output Radiasi (mGy/mAs)"
                             enabled: false
                         }
                         Label{
-                            text: rekamMedisLists.Alamat
+                            text: rekamMedisLists.OutputRadiasi
                             font.bold: true
                         }
                     }
@@ -233,14 +252,19 @@ Page {
                 }
                 Label {
                     text: "Foto Pemeriksaan"
+                    font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
-                Image{
-                    asynchronous: true
-                    fillMode: Image.PreserveAspectFit
+                ItemDelegate{
                     width: parent.width
                     height: parent.width
-                    source: user.domain+"/rmimage/"+rekamMedisLists.imageFile
+                    contentItem: Image{
+                        asynchronous: true
+                        fillMode: Image.PreserveAspectFit
+                        width: parent.width
+                        height: parent.width
+                        source: user.domain+"/rmimage/"+rekamMedisLists.imageFile
+                    }
                 }
             }
         }

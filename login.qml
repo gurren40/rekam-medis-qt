@@ -16,12 +16,29 @@ Page {
             Column{
                 spacing: 10
                 width: parent.width
-                Label {
-                    text: qsTr("Selamat datang di aplikasi rekam medis versi beta")
+                Image{
+                    id : logo
+                    source: "/image/logo.png"
                     anchors.horizontalCenter: parent.horizontalCenter
+                    width: (window.width < 192) ? window.width : 192
+                    height: logo.width
+                }
+                Label {
+                    text: qsTr(" ")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Label {
+                    text: qsTr("Selamat datang di Aplikasi Rekam Medis")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                SwitchDelegate{
+                    width: parent.width
+                    id : domainSwiper
+                    text: "Edit Server"
                 }
                 TextField{
                     id : domain
+                    visible: domainSwiper.checked
                     text: user.domain
                     width: parent.width
                     onTextEdited: {
@@ -55,6 +72,8 @@ Page {
                         id: loginButton
                         text: "Login"
                         onClicked: {
+                            rekamMedisLists.clearItemsData()
+                            user.username = username.text
                             user.createKey(username.text,password.text)
                         }
                     }

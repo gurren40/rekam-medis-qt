@@ -14,8 +14,7 @@ RekamMedisList::RekamMedisList(QObject *parent) : QObject(parent)
     item.OutputRadiasi = 0;
     item.ESAK = 0;
     item.DAP = 0;
-    item.imageFile = "";
-    //mItems.append(item);
+    item.imageFile = "none.jpg";
     mItem = item;
 }
 
@@ -75,6 +74,7 @@ void RekamMedisList::setRekamMedisList(QJsonArray jsonArr)
             item.NIK = jsonItem["NIK"].toString();
             item.Umur = jsonItem["Umur"].toInt();
             item.JK = jsonItem["JK"].toBool();
+            item.Alamat = jsonItem["Alamat"].toString();
             item.Tegangan = jsonItem["Tegangan"].toDouble();
             item.mAs = jsonItem["mAs"].toDouble();
             item.mGy = jsonItem["mGy"].toDouble();
@@ -230,6 +230,30 @@ void RekamMedisList::rekamMedisCreated()
     }
     createRekamMedisReply->disconnect();
     createRekamMedisReply->deleteLater();
+}
+
+void RekamMedisList::clearItemsData()
+{
+    while (mItems.size()>0) {
+        emit preItemRemoved(mItems.size()-1);
+        mItems.remove(mItems.size()-1);
+        emit postItemRemoved();
+    }
+    RekamMedisItem item;
+    item.ID = 0;
+    item.Nama = "";
+    item.NIK = "";
+    item.Umur = 0;
+    item.JK = true;
+    item.Tegangan = 0;
+    item.mAs = 0;
+    item.mGy = 0;
+    item.OutputRadiasi = 0;
+    item.ESAK = 0;
+    item.DAP = 0;
+    item.imageFile = "none.jpg";
+    mItem = item;
+    emit itemChanged();
 }
 
 void RekamMedisList::setUser(User *value)

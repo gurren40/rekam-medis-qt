@@ -7,6 +7,7 @@
 #include <QMetaType>
 #include <QObject>
 #include <QtSvg>
+#include <QFileDialog>
 
 #include "user.h"
 #include "rekammedislist.h"
@@ -14,10 +15,11 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication::setApplicationName("Rekam Medis");
-    QApplication::setOrganizationDomain("rekam-medis.web.id");
-    QApplication::setOrganizationName("Informatika Undip");
-    QApplication app(argc, argv);
+    QGuiApplication::setApplicationName("Rekam Medis");
+    QGuiApplication::setOrganizationDomain("rekam-medis.web.id");
+    QGuiApplication::setOrganizationName("Informatika Undip");
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
 

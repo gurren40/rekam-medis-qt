@@ -43,6 +43,16 @@ ApplicationWindow {
             text: stackView.currentItem.title
             anchors.centerIn: parent
         }
+
+        ToolButton {
+            id: menuButton
+            icon.name: "refresh"
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            anchors.right: parent.right
+            onClicked: {
+                rekamMedisLists.getRekamMedisList()
+            }
+        }
     }
 
     Drawer {
@@ -75,6 +85,13 @@ ApplicationWindow {
                 width: parent.width
                 onClicked: {
                     window.logOut()
+                }
+            }
+            ItemDelegate {
+                text: qsTr("Exit")
+                width: parent.width
+                onClicked: {
+                    Qt.quit()
                 }
             }
         }

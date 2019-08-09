@@ -19,6 +19,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
+        rekammedislist.cpp \
+        rekammedismodel.cpp \
         user.cpp
 
 RESOURCES += qml.qrc
@@ -35,4 +37,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    rekammedislist.h \
+    rekammedismodel.h \
     user.h
+
+contains(ANDROID_TARGET_ARCH,arm64-v8a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/ssl/arm/libcrypto.so \
+        $$PWD/ssl/arm/libssl.so
+}
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/ssl/arm/libcrypto.so \
+        $$PWD/ssl/arm/libssl.so
+}

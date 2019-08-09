@@ -8,6 +8,8 @@
 #include <QObject>
 
 #include "user.h"
+#include "rekammedislist.h"
+#include "rekammedismodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,9 +23,17 @@ int main(int argc, char *argv[])
     //init all object
     QNetworkAccessManager networkManager;
     User user;
+    RekamMedisList rmlist;
     user.setNetworkManager(&networkManager);
+    rmlist.setNetworkManager(&networkManager);
+    rmlist.setUser(&user);
+
+    qmlRegisterType<RekamMedisModel>("RekamMedis", 1, 0, "RekamMedisModel");
+    qmlRegisterUncreatableType<RekamMedisList>("RekamMedis", 1, 0, "RekamMedisList",
+        QStringLiteral("RekamMedisList should not be created in QML"));
 
     engine.rootContext()->setContextProperty(QStringLiteral("user"), &user);
+    engine.rootContext()->setContextProperty(QStringLiteral("rekamMedisLists"), &rmlist);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

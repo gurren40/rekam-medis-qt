@@ -20,6 +20,14 @@ Page {
                     text: qsTr("Selamat datang di aplikasi rekam medis versi beta")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
+                TextField{
+                    id : domain
+                    text: user.domain
+                    width: parent.width
+                    onTextEdited: {
+                        user.domain = domain.text
+                    }
+                }
                 Label {
                     text: qsTr("  ")
                     anchors.horizontalCenter: parent.horizontalCenter

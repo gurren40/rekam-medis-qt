@@ -78,7 +78,7 @@ Page {
                     id : tegangan
                     width: parent.width
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
+                    validator: DoubleValidator{}
                 }
                 Label {
                     text: qsTr("mAs :")
@@ -87,7 +87,7 @@ Page {
                     id : mAs
                     width: parent.width
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
+                    validator: DoubleValidator{}
                 }
                 Label {
                     text: qsTr("mGy :")
@@ -96,7 +96,7 @@ Page {
                     id : mGy
                     width: parent.width
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
+                    validator: DoubleValidator{}
                 }
                 Label {
                     text: qsTr("Output Radias :")
@@ -105,7 +105,7 @@ Page {
                     id : outputRadiasi
                     width: parent.width
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
+                    validator: DoubleValidator{}
                 }
                 Label {
                     text: qsTr("ESAK :")
@@ -114,7 +114,7 @@ Page {
                     id : esak
                     width: parent.width
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
+                    validator: DoubleValidator{}
                 }
                 Label {
                     text: qsTr("DAP :")
@@ -123,7 +123,7 @@ Page {
                     id : dap
                     width: parent.width
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
+                    validator: DoubleValidator{}
                 }
                 Label {
                     text: qsTr("Gambar :")
@@ -147,6 +147,8 @@ Page {
                         text: "Buat"
                         onClicked: {
                             alert.open()
+                            rekamMedisLists.createNewRekamMedis(nama.text,nik.text,umur.text,jk.currentText,alamat.text,tegangan.text,mAs.text,mGy.text,outputRadiasi.text,esak.text,dap.text,gambar.text)
+                            stackView.pop()
                         }
                     }
                     Button{

@@ -107,6 +107,9 @@ void User::keyCreated()
     QJsonDocument jsonDoc(QJsonDocument::fromJson(replyData));
     if(jsonDoc.object().contains("status")){
         emit notify(jsonDoc.object()["status"].toString());
+        if(jsonDoc.object()["status"].toString() == "expired"){
+            delKey();
+        }
     }
     else if(jsonDoc.object().contains("key")){
         setKey(jsonDoc.object()["key"].toString());

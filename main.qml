@@ -28,7 +28,7 @@ ApplicationWindow {
 
         ToolButton {
             id: toolButton
-            text: stackView.depth > 1 ? "\u25C0" : "\u2630"
+            icon.name: (stackView.depth > 1) ? "chevron_left" : "menu"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             onClicked: {
                 if (stackView.depth > 1) {
@@ -65,10 +65,18 @@ ApplicationWindow {
             anchors.fill: parent
 
             ItemDelegate {
-                text: qsTr("Create New Rekam Medis")
+                text: qsTr("Masukkan Rekam Medis")
                 width: parent.width
                 onClicked: {
                     stackView.push("createRM.qml")
+                    drawer.close()
+                }
+            }
+            ItemDelegate {
+                text: qsTr("Hitung Dosis")
+                width: parent.width
+                onClicked: {
+                    stackView.push("hitung.qml")
                     drawer.close()
                 }
             }

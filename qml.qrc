@@ -10,5 +10,6 @@
         <file>rekamMedisDetail.qml</file>
         <file>settings.qml</file>
         <file>SelectFile.qml</file>
+        <file>hitung.qml</file>
     </qresource>
 </RCC>

@@ -3,19 +3,20 @@
 RekamMedisList::RekamMedisList(QObject *parent) : QObject(parent)
 {
     RekamMedisItem item;
-    item.ID = 1;
-    item.Nama = "Data1";
-    item.NIK = "12345";
-    item.Umur = 21;
+    item.ID = 0;
+    item.Nama = "";
+    item.NIK = "";
+    item.Umur = 0;
     item.JK = true;
-    item.Tegangan = 22;
-    item.mAs = 23;
-    item.mGy = 24;
-    item.OutputRadiasi = 25;
-    item.ESAK = 26;
-    item.DAP = 27;
-    item.imageFile = 28;
-    mItems.append(item);
+    item.Tegangan = 0;
+    item.mAs = 0;
+    item.mGy = 0;
+    item.OutputRadiasi = 0;
+    item.ESAK = 0;
+    item.DAP = 0;
+    item.imageFile = "";
+    //mItems.append(item);
+    mItem = item;
 }
 
 QVector<RekamMedisItem> RekamMedisList::items() const
@@ -95,6 +96,7 @@ void RekamMedisList::setRekamMedis(QJsonObject jsonObj)
     mItem.NIK = jsonObj["NIK"].toString();
     mItem.Umur = jsonObj["Umur"].toInt();
     mItem.JK = jsonObj["JK"].toBool();
+    mItem.Alamat = jsonObj["Alamat"].toString();
     mItem.Tegangan = jsonObj["Tegangan"].toDouble();
     mItem.mAs = jsonObj["mAs"].toDouble();
     mItem.mGy = jsonObj["mGy"].toDouble();
@@ -142,7 +144,7 @@ void RekamMedisList::getRekamMedis(QVariant id)
     QNetworkReply *rekamMedisReply;
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
-    QString urlString = user->getDomain()+"/RekamMedisAPI/get/"+QString::number(id.toInt()).toUtf8();
+    QString urlString = user->getDomain()+"/RekamMedisAPI/get/"+id.toString();
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;

@@ -56,7 +56,7 @@ Page {
                     if(listViewElement.currentIndex != index){
                         listViewElement.currentIndex = index
                     }
-                    stackView.push("./rekamMedisDetail.qml",{itemID:2})
+                    stackView.push("./rekamMedisDetail.qml",{itemID:model.ID})
                 }
             }
         }

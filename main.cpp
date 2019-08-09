@@ -6,6 +6,7 @@
 #include <QIcon>
 #include <QMetaType>
 #include <QObject>
+#include <QtSvg>
 
 #include "user.h"
 #include "rekammedislist.h"
@@ -27,6 +28,10 @@ int main(int argc, char *argv[])
     user.setNetworkManager(&networkManager);
     rmlist.setNetworkManager(&networkManager);
     rmlist.setUser(&user);
+
+    //misc
+    QIcon::setThemeName("witchcraft");
+    qRegisterMetaType<QJsonObject>();
 
     qmlRegisterType<RekamMedisModel>("RekamMedis", 1, 0, "RekamMedisModel");
     qmlRegisterUncreatableType<RekamMedisList>("RekamMedis", 1, 0, "RekamMedisList",

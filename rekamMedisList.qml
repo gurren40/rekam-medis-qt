@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
-import RekamMedis 1.0
+//import RekamMedis 1.0
 
 Page {
     anchors.fill: parent
@@ -25,14 +25,27 @@ Page {
             Layout.fillHeight: true
             Layout.fillWidth: true
             currentIndex: 0
-            model: RekamMedisModel{
-                list: rekamMedisLists
-            }
+            model: rekamMedisFilter
 
-            footer: Label{
-                height: 90
+            header: ItemDelegate{
+                id : sortFilter
                 width: parent.width
-                text: ""
+                contentItem: Row {
+                    width: parent.width
+                    TextField{
+                        id : searchField
+                        width: parent.width - sortOption.width
+                        anchors.verticalCenter: parent.verticalCenter
+                        placeholderText: "Filter"
+                        onTextEdited: rekamMedisFilter.setFilterString(searchField.text)
+                    }
+                    ToolButton{
+                        id : sortOption
+                        icon.name: rekamMedisFilter.isDescending ? "sort-descending" : "sort-ascending"
+                        icon.color: "teal"
+                        onClicked: rekamMedisFilter.isDescending ? rekamMedisFilter.isDescending = false : rekamMedisFilter.isDescending = true
+                    }
+                }
             }
 
             delegate: ItemDelegate {

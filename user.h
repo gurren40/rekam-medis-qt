@@ -19,6 +19,7 @@ class User : public QObject
     Q_PROPERTY(QString domain READ getDomain WRITE setDomain NOTIFY domainSig)
     Q_PROPERTY(QString notify READ getNotify NOTIFY notifySig)
     Q_PROPERTY(bool enableNotify READ enableNotify WRITE setEnableNotify NOTIFY enableNotifySig)
+    Q_PROPERTY(bool advancedOption READ getAO WRITE setAO NOTIFY sigAO)
 
 public:
     explicit User(QObject *parent = nullptr);
@@ -39,6 +40,9 @@ signals:
     void notifySig();
 
     void enableNotifySig();
+
+    //advanced option
+    void sigAO();
 
 public slots:
     //bind network manager
@@ -75,6 +79,10 @@ public slots:
 
     //logout
     void logOut();
+
+    //advancedOption
+    void setAO(QVariant value);
+    bool getAO();
 
 private:
     QNetworkAccessManager *m_networkManager;

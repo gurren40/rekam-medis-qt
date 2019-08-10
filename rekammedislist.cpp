@@ -46,7 +46,12 @@ void RekamMedisList::setRekamMedisList(QJsonArray jsonArr)
         item.Nama = jsonItem["Nama"].toString();
         item.NIK = jsonItem["NIK"].toString();
         item.Umur = jsonItem["Umur"].toInt();
-        item.JK = jsonItem["JK"].toBool();
+        if(jsonItem["JK"].toInt() == 0){
+            item.JK = false;
+        }
+        else {
+            item.JK = true;
+        }
         item.Tegangan = jsonItem["Tegangan"].toDouble();
         item.mAs = jsonItem["mAs"].toDouble();
         item.mGy = jsonItem["mGy"].toDouble();
@@ -95,7 +100,12 @@ void RekamMedisList::setRekamMedis(QJsonObject jsonObj)
     mItem.Nama = jsonObj["Nama"].toString();
     mItem.NIK = jsonObj["NIK"].toString();
     mItem.Umur = jsonObj["Umur"].toInt();
-    mItem.JK = jsonObj["JK"].toBool();
+    if(jsonObj["JK"].toInt() == 0){
+        mItem.JK = false;
+    }
+    else {
+        mItem.JK = true;
+    }
     mItem.Alamat = jsonObj["Alamat"].toString();
     mItem.Tegangan = jsonObj["Tegangan"].toDouble();
     mItem.mAs = jsonObj["mAs"].toDouble();

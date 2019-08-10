@@ -25,6 +25,13 @@ Page {
                         user.enableNotify = notifswitch.checked
                     }
                 }
+                SwitchDelegate{
+                    width: parent.width
+                    id : advancedOption
+                    text: "Advanced Option"
+                    checked: user.advancedOption
+                    onClicked: user.advancedOption = checked
+                }
             }
         }
     }

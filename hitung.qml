@@ -16,82 +16,96 @@ Page {
             Column{
                 spacing: 10
                 width: parent.width
-                Label{
-                    text: "Tegangan : "
-                    leftPadding: 20
-                    rightPadding: 20
-                }
-                TextField {
-                    id:tegangan
-                    leftPadding: 20
-                    rightPadding: 20
-                    placeholderText: "Tegangan"
-                    text: "0"
+                ItemDelegate {
                     width: parent.width
-                    validator: DoubleValidator{}
-                    onTextEdited: {
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Tegangan"
+                        }
+                        TextField {
+                            id:tegangan
+                            placeholderText: "Tegangan"
+                            text: "0"
+                            width: parent.width
+                            validator: DoubleValidator{}
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Arus Waktu (mAs) : "
+                        }
+                        TextField {
+                            id:mAs
+                            placeholderText: "mAs"
+                            text: "0"
+                            width: parent.width
+                            validator: DoubleValidator{}
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text: "BSF : "
+                        }
+                        TextField {
+                            id : bsf
+                            placeholderText: "BSF"
+                            text: "0"
+                            width: parent.width
+                            validator: DoubleValidator{}
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text: "DAP : "
+                        }
+                        TextField {
+                            id : dap
+                            placeholderText: "DAP"
+                            text: "0"
+                            width: parent.width
+                            validator: DoubleValidator{}
+                        }
+                    }
+                }
+                Label{
+                    text: " "
+                }
+                Button{
+                    id : hitungData
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Hitung"
+                    onClicked: {
                         inak.text = 0.0011 * tegangan.text - 0.0513
                         dosis.text = inak.text * mAs.text
                         esak.text = dosis.text * bsf.text
                     }
                 }
-                Label{
-                    leftPadding: 20
-                    rightPadding: 20
-                    text: "Arus Waktu (mAs) : "
-                }
-                TextField {
-                    id:mAs
-                    leftPadding: 20
-                    rightPadding: 20
-                    placeholderText: "mAs"
-                    text: "0"
-                    width: parent.width
-                    validator: DoubleValidator{}
-                    onTextEdited: {
-                        inak.text = 0.0011 * tegangan.text - 0.0513
-                        dosis.text = inak.text * mAs.text
-                        esak.text = dosis.text * bsf.text
-                    }
-                }
-                Label{
-                    text: "BSF : "
-                    leftPadding: 20
-                    rightPadding: 20
-                }
-                TextField {
-                    id : bsf
-                    leftPadding: 20
-                    rightPadding: 20
-                    placeholderText: "BSF"
-                    text: "0"
-                    width: parent.width
-                    validator: DoubleValidator{}
-                    onTextEdited: {
-                        inak.text = 0.0011 * tegangan.text - 0.0513
-                        dosis.text = inak.text * mAs.text
-                        esak.text = dosis.text * bsf.text
-                    }
-                }
-                Label{
-                    text: "DAP : "
-                    leftPadding: 20
-                    rightPadding: 20
-                }
-                TextField {
-                    id : dap
-                    leftPadding: 20
-                    rightPadding: 20
-                    placeholderText: "DAP"
-                    text: "0"
-                    width: parent.width
-                    validator: DoubleValidator{}
-                    onTextEdited: {
-                        inak.text = 0.0011 * tegangan.text - 0.0513
-                        dosis.text = inak.text * mAs.text
-                        esak.text = dosis.text * bsf.text
-                    }
-                }
+
                 Label{
                     text: " "
                 }
@@ -108,7 +122,7 @@ Page {
                         }
                         Label{
                             id : inak
-                            text: 0.0011 * tegangan.text - 0.0513
+                            text: "0"
                             font.bold: true
                         }
                     }
@@ -126,7 +140,7 @@ Page {
                         }
                         Label{
                             id: dosis
-                            text: inak.text * mAs.text
+                            text: "0"
                             font.bold: true
                         }
                     }
@@ -144,7 +158,7 @@ Page {
                         }
                         Label{
                             id : esak
-                            text: dosis.text * bsf.text
+                            text: "0"
                             font.bold: true
                         }
                     }

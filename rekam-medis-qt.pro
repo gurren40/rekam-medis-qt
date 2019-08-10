@@ -20,6 +20,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
+        rekammedisfilter.cpp \
         rekammedislist.cpp \
         rekammedismodel.cpp \
         user.cpp
@@ -39,6 +40,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    rekammedisfilter.h \
     rekammedislist.h \
     rekammedismodel.h \
     user.h

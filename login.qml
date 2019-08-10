@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.3
 
 Page {
     anchors.fill: parent
-    padding: 20
     title: qsTr("Rekam Medis")
     ColumnLayout{
         anchors.fill: parent
@@ -31,41 +30,63 @@ Page {
                     text: qsTr("Selamat datang di Aplikasi Rekam Medis")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
-                SwitchDelegate{
+                ItemDelegate {
                     width: parent.width
-                    id : domainSwiper
-                    text: "Advanced Option"
-                    checked: user.advancedOption
-                    onClicked: user.advancedOption = checked
-                }
-                TextField{
-                    id : domain
                     visible: domainSwiper.checked
-                    text: user.domain
-                    width: parent.width
-                    onTextEdited: {
-                        user.domain = domain.text
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Domain :"
+                        }
+                        TextField{
+                            id : domain
+                            text: user.domain
+                            width: parent.width
+                            placeholderText: "Domain"
+                            onTextEdited: {
+                                user.domain = domain.text
+                            }
+                        }
                     }
                 }
-                Label {
-                    text: qsTr("  ")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-                Label {
-                    text: qsTr("Username :")
-                }
-                TextField{
-                    id : username
+                ItemDelegate {
                     width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Username :"
+                        }
+                        TextField{
+                            id : username
+                            width: parent.width
+                            placeholderText: "Username"
+                        }
+                    }
                 }
-                Label {
-                    text: qsTr("Password :")
-                }
-                TextField{
-                    id : password
+                ItemDelegate {
                     width: parent.width
-                    echoMode: TextInput.Password
-                    passwordMaskDelay: 100
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text: qsTr("Password :")
+                        }
+                        TextField{
+                            id : password
+                            width: parent.width
+                            echoMode: TextInput.Password
+                            passwordMaskDelay: 100
+                            placeholderText: "Password"
+                        }
+                    }
                 }
                 Row{
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -85,6 +106,16 @@ Page {
                         onClicked: stackView.replace("register.qml")
                         visible: user.advancedOption
                     }
+                }
+                Label{
+                    text : ""
+                }
+                SwitchDelegate{
+                    width: parent.width
+                    id : domainSwiper
+                    text: "Advanced Option"
+                    checked: user.advancedOption
+                    onClicked: user.advancedOption = checked
                 }
             }
         }

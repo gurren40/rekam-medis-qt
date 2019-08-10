@@ -8,7 +8,7 @@ Page {
     verticalPadding: 20
     title: qsTr("Detail Rekam Medis")
     property int itemID: 0
-    property string jenisKelamin: !rekamMedisLists.JK ? "Pria" : "Wanita"
+    property string jenisKelamin: (!rekamMedisLists.JK) ? "Pria" : "Wanita"
     Timer{
         interval: 1000
         repeat: false
@@ -169,28 +169,11 @@ Page {
                         Label{
                             font.bold: false
                             font.pointSize: 10
-                            text : "mGy"
+                            text : "INAK (mGy)"
                             enabled: false
                         }
                         Label{
                             text: rekamMedisLists.mGy
-                            font.bold: true
-                        }
-                    }
-                }
-                ItemDelegate {
-                    width: parent.width
-                    contentItem: Column{
-                        width: parent.width
-                        spacing: 2
-                        Label{
-                            font.bold: false
-                            font.pointSize: 10
-                            text : "INAK"
-                            enabled: false
-                        }
-                        Label{
-                            text: rekamMedisLists.INAK
                             font.bold: true
                         }
                     }

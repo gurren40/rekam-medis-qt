@@ -80,7 +80,7 @@ QString User::getDomain()
         return setting.value("domain").toString();
     }
     else{
-        return "https://rekam-medis.azurewebsites.net";
+        return "http://rekam-medis.southeastasia.cloudapp.azure.com";
     }
 }
 
@@ -158,7 +158,7 @@ bool User::enableNotify()
 {
     QSettings setting;
     if(!setting.contains("enableInternalNotification")){
-        return false;
+        return true;
     }
     else{
         return setting.value("enableInternalNotification").toBool();
@@ -174,4 +174,22 @@ void User::setEnableNotify(QVariant notify)
 
 void User::logOut(){
     delKey();
+}
+
+void User::setAO(QVariant value)
+{
+    QSettings setting;
+    setting.setValue("advancedOption",value.toBool());
+    emit sigAO();
+}
+
+bool User::getAO()
+{
+    QSettings setting;
+    if(!setting.contains("advancedOption")){
+        return false;
+    }
+    else{
+        return setting.value("advancedOption").toBool();
+    }
 }

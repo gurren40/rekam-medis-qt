@@ -34,7 +34,9 @@ Page {
                 SwitchDelegate{
                     width: parent.width
                     id : domainSwiper
-                    text: "Edit Server"
+                    text: "Advanced Option"
+                    checked: user.advancedOption
+                    onClicked: user.advancedOption = checked
                 }
                 TextField{
                     id : domain
@@ -81,6 +83,7 @@ Page {
                         id : register
                         text: "Register"
                         onClicked: stackView.replace("register.qml")
+                        visible: user.advancedOption
                     }
                 }
             }

@@ -108,6 +108,7 @@ ApplicationWindow {
                     stackView.push("createRM.qml")
                     drawer.close()
                 }
+                visible: user.advancedOption
             }
             ItemDelegate {
                 text: qsTr("Hitung Dosis")

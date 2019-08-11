@@ -30,6 +30,7 @@ Page {
             header: ItemDelegate{
                 id : sortFilter
                 width: parent.width
+                rightPadding: 0
                 contentItem: Row {
                     width: parent.width
                     TextField{

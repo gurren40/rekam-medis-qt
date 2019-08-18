@@ -166,7 +166,7 @@ void RekamMedisList::createNewRekamMedis(QVariant Nama, QVariant Tegangan, QVari
     QNetworkReply *createRekamMedisReply;
     QNetworkRequest request;
     QUrl fileurl(ImageFile.toString());
-    QFile file(fileurl.toString(QUrl::RemoveScheme | QUrl::PreferLocalFile | QUrl::FullyEncoded));
+    QFile file(fileurl.toString(QUrl::RemoveScheme | QUrl::PreferLocalFile | QUrl::PrettyDecoded));
     if(!file.open(QIODevice::ReadOnly)){
         emit notify("cannot open image file");
     }

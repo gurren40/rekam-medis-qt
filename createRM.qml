@@ -25,53 +25,6 @@ Page {
                     width: parent.width
                 }
                 Label {
-                    text: qsTr("NIK :")
-                }
-                TextField{
-                    id : nik
-                    width: parent.width
-                }
-                Label {
-                    text: qsTr("Umur :")
-                }
-                TextField{
-                    id : umur
-                    width: parent.width
-                    inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
-                }
-                Label {
-                    text: qsTr("Jenis Kelamin :")
-                }
-                ComboBox{
-                    id : jk
-                    textRole: "jk"
-                    displayText: (currentText == 0) ? "Pria" : "Wanita"
-                    width: parent.width
-                    model: ListModel{
-                        ListElement{
-                            name : "Pria"
-                            jk : 0
-                        }
-                        ListElement{
-                            name : "Wanita"
-                            jk : 1
-                        }
-                    }
-
-                    delegate: ItemDelegate{
-                        width: parent.width
-                        text: model.name
-                    }
-                }
-                Label {
-                    text: qsTr("Alamat :")
-                }
-                TextField{
-                    id : alamat
-                    width: parent.width
-                }
-                Label {
                     text: qsTr("Tegangan :")
                 }
                 TextField{
@@ -159,7 +112,7 @@ Page {
                         id: buatButton
                         text: "Buat"
                         onClicked: {
-                            rekamMedisLists.createNewRekamMedis(nama.text,nik.text,umur.text,jk.currentText,alamat.text,tegangan.text,mAs.text,mGy.text,outputRadiasi.text,esak.text,dap.text,gambar.text)
+                            rekamMedisLists.createNewRekamMedis(nama.text,tegangan.text,mAs.text,mGy.text,outputRadiasi.text,esak.text,dap.text,gambar.text)
                             stackView.pop()
                         }
                     }

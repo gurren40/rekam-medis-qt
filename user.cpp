@@ -3,6 +3,10 @@
 User::User(QObject *parent) : QObject(parent)
 {
     notifyMessage = "";
+    Nama = "";
+    Umur = 0;
+    JK = false;
+    Alamat = "";
 }
 
 void User::setNetworkManager(QNetworkAccessManager *netmgr)
@@ -13,7 +17,7 @@ void User::setNetworkManager(QNetworkAccessManager *netmgr)
 void User::setKey(QString key)
 {
     QSettings setting;
-    setting.setValue("keys",key);
+    setting.setValue("key",key);
     emit keySig();
     emit isLoggedInSig();
 }
@@ -21,7 +25,7 @@ void User::setKey(QString key)
 void User::delKey()
 {
     QSettings setting;
-    setting.remove("keys");
+    setting.remove("key");
     emit keySig();
     emit isLoggedInSig();
 }
@@ -29,36 +33,56 @@ void User::delKey()
 QString User::getKey()
 {
     QSettings setting;
-    if(setting.contains("keys")){
-        return setting.value("keys").toString();
+    if(setting.contains("key")){
+        return setting.value("key").toString();
     }
     else{
         return "none";
     }
 }
 
-void User::setUsername(QString username)
+void User::setNIK(QString NIK)
 {
     QSettings setting;
-    setting.setValue("username",username);
-    emit setUsernameSig();
+    setting.setValue("NIK",NIK);
+    emit userDataSig();
 }
 
-QString User::getUsername()
+QString User::getNIK()
 {
     QSettings setting;
-    if(setting.contains("username")){
-        return setting.value("username").toString();
+    if(setting.contains("NIK")){
+        return setting.value("NIK").toString();
     }
     else{
         return "none";
     }
+}
+
+QString User::getNama()
+{
+    return Nama;
+}
+
+int User::getUmur()
+{
+    return Umur;
+}
+
+bool User::getJK()
+{
+    return JK;
+}
+
+QString User::getAlamat()
+{
+    return Alamat;
 }
 
 bool User::getIsLoggedIn()
 {
     QSettings setting;
-    if(setting.contains("keys")){
+    if(setting.contains("key")){
         return true;
     }
     else{
@@ -85,7 +109,7 @@ QString User::getDomain()
 }
 
 
-void User::createKey(QVariant username, QVariant password)
+void User::createKey(QVariant NIK, QVariant password)
 {
     QNetworkReply *m_networkAuthKeyReply;
     QNetworkRequest request;
@@ -94,7 +118,7 @@ void User::createKey(QVariant username, QVariant password)
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
-    data.append("username="+username.toString().toUtf8()+"&");
+    data.append("NIK="+NIK.toString().toUtf8()+"&");
     data.append("password="+password.toString().toUtf8());
     m_networkAuthKeyReply = m_networkManager->post(request,data);
     connect(m_networkAuthKeyReply,&QNetworkReply::finished,this,&User::keyCreated);
@@ -118,7 +142,7 @@ void User::keyCreated()
     m_networkAuthKeyReply->deleteLater();
 }
 
-void User::createUser(QVariant username, QVariant password)
+void User::createUser(QVariant NIK, QVariant password, QVariant Nama, QVariant Umur, QVariant JK, QVariant Alamat)
 {
     QNetworkReply *m_networkCreateUserReply;
     QNetworkRequest request;
@@ -127,8 +151,12 @@ void User::createUser(QVariant username, QVariant password)
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
-    data.append("username="+username.toString().toUtf8()+"&");
-    data.append("password="+password.toString().toUtf8());
+    data.append("NIK="+NIK.toString().toUtf8()+"&");
+    data.append("password="+password.toString().toUtf8()+"&");
+    data.append("Nama="+Nama.toString().toUtf8()+"&");
+    data.append("Umur="+Umur.toString().toUtf8()+"&");
+    data.append("JK="+JK.toString().toUtf8()+"&");
+    data.append("Alamat="+Alamat.toString().toUtf8());
     m_networkCreateUserReply = m_networkManager->post(request,data);
     connect(m_networkCreateUserReply,&QNetworkReply::finished,this,&User::userCreated);
 }
@@ -141,6 +169,47 @@ void User::userCreated()
     emit notify(jsonDoc.object()["status"].toString());
     m_networkCreateUserReply->disconnect();
     m_networkCreateUserReply->deleteLater();
+}
+
+void User::getUserInfo()
+{
+    QNetworkReply *userInfoReply;
+    QNetworkRequest request;
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QString urlString = getDomain()+"/UserAPI/get/";
+    QUrl url(urlString);
+    request.setUrl(url);
+    QByteArray data;
+    data.append("key="+getKey().toUtf8());
+    userInfoReply = m_networkManager->post(request,data);
+    connect(userInfoReply,&QNetworkReply::finished,this,&User::gotUserInfo);
+}
+
+void User::gotUserInfo()
+{
+    QNetworkReply *userInfoReply = qobject_cast<QNetworkReply *>(sender());
+    QByteArray replyData = userInfoReply->readAll();
+    QJsonDocument jsonDoc(QJsonDocument::fromJson(replyData));
+    if(jsonDoc.object().contains("status")){
+        emit notify(jsonDoc.object()["status"].toString());
+        if(jsonDoc.object()["status"].toString() == "expired"){
+            delKey();
+        }
+    }
+    else{
+        Nama = jsonDoc.object()["Nama"].toString();
+        Umur = jsonDoc.object()["Umur"].toInt();
+        if(jsonDoc.object()["JK"].toInt() == 1){
+            JK = true;
+        }
+        else {
+            JK = false;
+        }
+        Alamat = jsonDoc.object()["Alamat"].toString();
+        emit userDataSig();
+    }
+    userInfoReply->disconnect();
+    userInfoReply->deleteLater();
 }
 
 void User::notify(QString status)

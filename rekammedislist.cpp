@@ -5,9 +5,6 @@ RekamMedisList::RekamMedisList(QObject *parent) : QObject(parent)
     RekamMedisItem item;
     item.ID = 0;
     item.Nama = "";
-    item.NIK = "";
-    item.Umur = 0;
-    item.JK = true;
     item.Tegangan = 0;
     item.mAs = 0;
     item.mGy = 0;
@@ -15,6 +12,7 @@ RekamMedisList::RekamMedisList(QObject *parent) : QObject(parent)
     item.ESAK = 0;
     item.DAP = 0;
     item.imageFile = "none.jpg";
+    item.datecreated = "";
     mItem = item;
 }
 
@@ -44,14 +42,6 @@ void RekamMedisList::setRekamMedisList(QJsonArray jsonArr)
         QJsonObject jsonItem = jsonArr.at(i).toObject();
         item.ID = jsonItem["ID"].toInt();
         item.Nama = jsonItem["Nama"].toString();
-        item.NIK = jsonItem["NIK"].toString();
-        item.Umur = jsonItem["Umur"].toInt();
-        if(jsonItem["JK"].toInt() == 0){
-            item.JK = false;
-        }
-        else {
-            item.JK = true;
-        }
         item.Tegangan = jsonItem["Tegangan"].toDouble();
         item.mAs = jsonItem["mAs"].toDouble();
         item.mGy = jsonItem["mGy"].toDouble();
@@ -59,6 +49,7 @@ void RekamMedisList::setRekamMedisList(QJsonArray jsonArr)
         item.ESAK = jsonItem["Esak"].toDouble();
         item.DAP = jsonItem["DAP"].toDouble();
         item.imageFile = jsonItem["imageName"].toString();
+        item.datecreated = jsonItem["datecreated"].toString();
         mItems[i] = item;
         emit itemDataChanged(i,i);
     }
@@ -76,10 +67,6 @@ void RekamMedisList::setRekamMedisList(QJsonArray jsonArr)
             QJsonObject jsonItem = jsonArr.at(mItems.size()).toObject();
             item.ID = jsonItem["ID"].toInt();
             item.Nama = jsonItem["Nama"].toString();
-            item.NIK = jsonItem["NIK"].toString();
-            item.Umur = jsonItem["Umur"].toInt();
-            item.JK = jsonItem["JK"].toBool();
-            item.Alamat = jsonItem["Alamat"].toString();
             item.Tegangan = jsonItem["Tegangan"].toDouble();
             item.mAs = jsonItem["mAs"].toDouble();
             item.mGy = jsonItem["mGy"].toDouble();
@@ -87,6 +74,7 @@ void RekamMedisList::setRekamMedisList(QJsonArray jsonArr)
             item.ESAK = jsonItem["Esak"].toDouble();
             item.DAP = jsonItem["DAP"].toDouble();
             item.imageFile = jsonItem["imageName"].toString();
+            item.datecreated = jsonItem["datecreated"].toString();
             emit preItemAppended();
             mItems.append(item);
             emit postItemAppended();
@@ -98,15 +86,6 @@ void RekamMedisList::setRekamMedis(QJsonObject jsonObj)
 {
     mItem.ID = jsonObj["ID"].toInt();
     mItem.Nama = jsonObj["Nama"].toString();
-    mItem.NIK = jsonObj["NIK"].toString();
-    mItem.Umur = jsonObj["Umur"].toInt();
-    if(jsonObj["JK"].toInt() == 0){
-        mItem.JK = false;
-    }
-    else {
-        mItem.JK = true;
-    }
-    mItem.Alamat = jsonObj["Alamat"].toString();
     mItem.Tegangan = jsonObj["Tegangan"].toDouble();
     mItem.mAs = jsonObj["mAs"].toDouble();
     mItem.mGy = jsonObj["mGy"].toDouble();
@@ -114,6 +93,7 @@ void RekamMedisList::setRekamMedis(QJsonObject jsonObj)
     mItem.ESAK = jsonObj["Esak"].toDouble();
     mItem.DAP = jsonObj["DAP"].toDouble();
     mItem.imageFile = jsonObj["imageName"].toString();
+    mItem.datecreated = jsonObj["datecreated"].toString();
     emit itemChanged();
 }
 
@@ -126,7 +106,7 @@ void RekamMedisList::getRekamMedisList()
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
-    data.append("keys="+user->getKey().toUtf8());
+    data.append("key="+user->getKey().toUtf8());
     rekamMedisListReply = m_networkManager->post(request,data);
     connect(rekamMedisListReply,&QNetworkReply::finished,this,&RekamMedisList::gotRekamMedisList);
 }
@@ -158,7 +138,7 @@ void RekamMedisList::getRekamMedis(QVariant id)
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
-    data.append("keys="+user->getKey().toUtf8());
+    data.append("key="+user->getKey().toUtf8());
     rekamMedisReply = m_networkManager->post(request,data);
     connect(rekamMedisReply,&QNetworkReply::finished,this,&RekamMedisList::gotRekamMedis);
 }
@@ -181,7 +161,7 @@ void RekamMedisList::gotRekamMedis()
     rekamMedisReply->deleteLater();
 }
 
-void RekamMedisList::createNewRekamMedis(QVariant Nama, QVariant NIK, QVariant Umur, QVariant JK, QVariant Alamat, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile)
+void RekamMedisList::createNewRekamMedis(QVariant Nama, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile)
 {
     QNetworkReply *createRekamMedisReply;
     QNetworkRequest request;
@@ -197,19 +177,8 @@ void RekamMedisList::createNewRekamMedis(QVariant Nama, QVariant NIK, QVariant U
         QUrl url(urlString);
         request.setUrl(url);
         QByteArray data;
-        int jkvalue;
-        if(JK.toBool()){
-            jkvalue = 1;
-        }
-        else{
-            jkvalue = 0;
-        }
-        data.append("keys="+user->getKey().toUtf8()+"&");
+        data.append("key="+user->getKey().toUtf8()+"&");
         data.append("Nama="+Nama.toString().toUtf8()+"&");
-        data.append("NIK="+NIK.toString().toUtf8()+"&");
-        data.append("Umur="+Umur.toString().toUtf8()+"&");
-        data.append("JK="+QString::number(jkvalue).toUtf8()+"&");
-        data.append("Alamat="+Alamat.toString().toUtf8()+"&");
         data.append("Tegangan="+Tegangan.toString().toUtf8()+"&");
         data.append("mAs="+mAs.toString().toUtf8()+"&");
         data.append("mGy="+mGy.toString().toUtf8()+"&");
@@ -252,9 +221,6 @@ void RekamMedisList::clearItemsData()
     RekamMedisItem item;
     item.ID = 0;
     item.Nama = "";
-    item.NIK = "";
-    item.Umur = 0;
-    item.JK = true;
     item.Tegangan = 0;
     item.mAs = 0;
     item.mGy = 0;
@@ -262,6 +228,7 @@ void RekamMedisList::clearItemsData()
     item.ESAK = 0;
     item.DAP = 0;
     item.imageFile = "none.jpg";
+    item.datecreated = "";
     mItem = item;
     emit itemChanged();
 }
@@ -279,26 +246,6 @@ int RekamMedisList::getID()
 QString RekamMedisList::getNama()
 {
     return mItem.Nama;
-}
-
-QString RekamMedisList::getNIK()
-{
-    return mItem.NIK;
-}
-
-int RekamMedisList::getUmur()
-{
-    return mItem.Umur;
-}
-
-bool RekamMedisList::getJK()
-{
-    return mItem.JK;
-}
-
-QString RekamMedisList::getAlamat()
-{
-    return mItem.Alamat;
 }
 
 double RekamMedisList::getTegangan()
@@ -334,4 +281,9 @@ double RekamMedisList::getDAP()
 QString RekamMedisList::getimageFile()
 {
     return mItem.imageFile;
+}
+
+QString RekamMedisList::getDateCreated()
+{
+    return mItem.datecreated;
 }

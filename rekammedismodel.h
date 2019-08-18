@@ -16,17 +16,14 @@ public:
     enum {
         IDRole = Qt::UserRole,
         NamaRole,
-        NIKRole,
-        UmurRole,
-        JKRole,
-        AlamatRole,
         TeganganRole,
         mAsRole,
         mGyRole,
         OutputRadiasiRole,
         EsakRole,
         DAPRole,
-        imageFileRole
+        imageFileRole,
+        datecreatedRole,
     };
 
     // Basic functionality:

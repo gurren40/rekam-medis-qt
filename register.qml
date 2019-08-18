@@ -25,11 +25,62 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Label {
-                    text: qsTr("Username :")
+                    text: qsTr("Nama :")
                 }
                 TextField{
-                    id : username
+                    id : nama
                     width: parent.width
+                }
+                Label {
+                    text: qsTr("Umur :")
+                }
+                TextField{
+                    id : umur
+                    width: parent.width
+                    inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    validator: IntValidator{}
+                }
+                Label {
+                    text: qsTr("Jenis Kelamin :")
+                }
+                ComboBox{
+                    id : jk
+                    textRole: "jk"
+                    displayText: (currentText == 0) ? "Pria" : "Wanita"
+                    width: parent.width
+                    model: ListModel{
+                        ListElement{
+                            name : "Pria"
+                            jk : 0
+                        }
+                        ListElement{
+                            name : "Wanita"
+                            jk : 1
+                        }
+                    }
+
+                    delegate: ItemDelegate{
+                        width: parent.width
+                        text: model.name
+                    }
+                }
+                Label {
+                    text: qsTr("Alamat :")
+                }
+                TextField{
+                    id : alamat
+                    width: parent.width
+                }
+                Label {
+                    text: qsTr(" ")
+                }
+                Label {
+                    text: qsTr("NIK :")
+                }
+                TextField{
+                    id : nik
+                    width: parent.width
+                    validator: RegExpValidator { regExp: /[0-9]+/ }
                 }
                 Label {
                     text: qsTr("Password :")
@@ -56,24 +107,23 @@ Page {
                         id: registerButton
                         text: "Register"
                         onClicked: {
-                            if(username.text == ""){
-                                alertlabel.text = "Isian username kosong"
-                                alert.open()
+                            if(nik.text == ""){
+                                window.notify = "NIK tidak valid"
+                                notifyDialog.open()
                             }
                             else if(!(password.text == "")){
                                 if(password.text != repeatPassword.text){
-                                    alertlabel.text = "Isian password tidak sesuai"
-                                    alert.open()
+                                    window.notify = "Isian password tidak sesuai"
+                                    notifyDialog.open()
                                 }
                                 else{
-                                    //alertlabel.text = "Register Berhasil.\nSilahkan Login"
-                                    user.createUser(username.text,password.text)
+                                    user.createUser(nik.text,password.text,nama.text,umur.text,jk.currentText,alamat.text)
                                     stackView.pop()
                                 }
                             }
                             else{
-                                alertlabel.text = "Password Field is empty"
-                                alert.open()
+                                window.notify = "Password Field is empty"
+                                notifyDialog.open()
                             }
                         }
                     }
@@ -83,21 +133,6 @@ Page {
                         onClicked: stackView.replace("login.qml")
                     }
                 }
-            }
-        }
-
-        Dialog{
-            id : alert
-            modal: true
-            anchors.centerIn: parent
-            title: "Alert"
-            contentItem: Label{
-                id : alertlabel
-                text: "Password Mismatch"
-            }
-            standardButtons: Dialog.Ok
-            onAccepted: {
-                console.log("password mismatch")
             }
         }
     }

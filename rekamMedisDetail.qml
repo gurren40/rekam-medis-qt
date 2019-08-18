@@ -29,9 +29,9 @@ Page {
                 spacing: 10
                 width: parent.width
                 Label {
-                    text: "Profil Pasien"
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Data Pemeriksaan"
                     font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 ItemDelegate {
                     width: parent.width
@@ -58,74 +58,14 @@ Page {
                         Label{
                             font.bold: false
                             font.pointSize: 10
-                            text : "NIK"
+                            text : "Dibuat"
                             enabled: false
                         }
                         Label{
-                            text: rekamMedisLists.NIK
+                            text: Qt.formatDateTime(Date.fromLocaleString(locale,rekamMedisLists.datecreated,"yyyy-MM-dd"),"dddd, d MMMM yyyy")
                             font.bold: true
                         }
                     }
-                }
-                ItemDelegate {
-                    width: parent.width
-                    contentItem: Column{
-                        width: parent.width
-                        spacing: 2
-                        Label{
-                            font.bold: false
-                            font.pointSize: 10
-                            text : "Umur"
-                            enabled: false
-                        }
-                        Label{
-                            text: rekamMedisLists.Umur
-                            font.bold: true
-                        }
-                    }
-                }
-                ItemDelegate {
-                    width: parent.width
-                    contentItem: Column{
-                        width: parent.width
-                        spacing: 2
-                        Label{
-                            font.bold: false
-                            font.pointSize: 10
-                            text : "Jenis Kelamin"
-                            enabled: false
-                        }
-                        Label{
-                            text: rekamMedisDetail.jenisKelamin
-                            font.bold: true
-                        }
-                    }
-                }
-                ItemDelegate {
-                    width: parent.width
-                    contentItem: Column{
-                        width: parent.width
-                        spacing: 2
-                        Label{
-                            font.bold: false
-                            font.pointSize: 10
-                            text : "Alamat"
-                            enabled: false
-                        }
-                        Label{
-                            text: rekamMedisLists.Alamat
-                            font.bold: true
-                        }
-                    }
-                }
-                Label {
-                    text: " "
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-                Label {
-                    text: "Data Pemeriksaan"
-                    font.bold: true
-                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 ItemDelegate {
                     width: parent.width

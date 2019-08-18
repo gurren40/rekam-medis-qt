@@ -60,12 +60,12 @@ Page {
                         Label{
                             font.bold: true
                             font.pointSize: 10
-                            text : "Username :"
+                            text : "NIK :"
                         }
                         TextField{
-                            id : username
+                            id : nik
                             width: parent.width
-                            placeholderText: "Username"
+                            validator: RegExpValidator { regExp: /[0-9]+/ }
                         }
                     }
                 }
@@ -84,7 +84,6 @@ Page {
                             width: parent.width
                             echoMode: TextInput.Password
                             passwordMaskDelay: 100
-                            placeholderText: "Password"
                         }
                     }
                 }
@@ -95,9 +94,19 @@ Page {
                         id: loginButton
                         text: "Login"
                         onClicked: {
-                            rekamMedisLists.clearItemsData()
-                            user.username = username.text
-                            user.createKey(username.text,password.text)
+                            if(nik.length != 16){
+                                window.notify = "NIK tidak valid"
+                                notifyDialog.open()
+                            }
+                            else if(password.length < 1){
+                                window.notify = "Password tidak valid"
+                                notifyDialog.open()
+                            }
+                            else{
+                                rekamMedisLists.clearItemsData()
+                                user.NIK = nik.text
+                                user.createKey(nik.text,password.text)
+                            }
                         }
                     }
                     Button{

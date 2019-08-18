@@ -28,14 +28,6 @@ QVariant RekamMedisModel::data(const QModelIndex &index, int role) const
         return QVariant(item.ID);
     case NamaRole:
         return QVariant(item.Nama);
-    case NIKRole:
-        return QVariant(item.NIK);
-    case UmurRole:
-        return QVariant(item.Umur);
-    case JKRole:
-        return QVariant(item.JK);
-    case AlamatRole:
-        return QVariant(item.Alamat);
     case TeganganRole:
         return QVariant(item.Tegangan);
     case mAsRole:
@@ -50,6 +42,8 @@ QVariant RekamMedisModel::data(const QModelIndex &index, int role) const
         return QVariant(item.DAP);
     case imageFileRole:
         return QVariant(item.imageFile);
+    case datecreatedRole:
+        return QVariant(item.datecreated);
     }
 
     return QVariant();
@@ -67,18 +61,6 @@ bool RekamMedisModel::setData(const QModelIndex &index, const QVariant &value, i
         break;
     case NamaRole:
         item.Nama = value.toString();
-        break;
-    case NIKRole:
-        item.NIK = value.toString();
-        break;
-    case UmurRole:
-        item.Umur = value.toInt();
-        break;
-    case JKRole:
-        item.JK = value.toBool();
-        break;
-    case AlamatRole:
-        item.Alamat = value.toString();
         break;
     case TeganganRole:
         item.Tegangan = value.toDouble();
@@ -100,6 +82,9 @@ bool RekamMedisModel::setData(const QModelIndex &index, const QVariant &value, i
         break;
     case imageFileRole:
         item.imageFile = value.toString();
+        break;
+    case datecreatedRole:
+        item.datecreated = value.toString();
         break;
     }
 
@@ -123,16 +108,13 @@ QHash<int, QByteArray> RekamMedisModel::roleNames() const
     QHash<int, QByteArray> names;
     names[IDRole] = "ID";
     names[NamaRole] = "Nama";
-    names[NIKRole] = "NIK";
-    names[UmurRole] = "Umur";
-    names[JKRole] = "JK";
-    names[AlamatRole] = "Alamat";
     names[mAsRole] = "mAs";
     names[mGyRole] = "mGy";
     names[OutputRadiasiRole] = "OutputRadiasi";
     names[EsakRole] = "Esak";
     names[DAPRole] = "DAP";
     names[imageFileRole] = "imageFile";
+    names[datecreatedRole] = "datecreated";
     return names;
 }
 

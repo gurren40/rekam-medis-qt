@@ -29,7 +29,8 @@ ApplicationWindow {
         standardButtons: Dialog.Ok
         onAccepted: {
             console.log("berhasil dibuat")
-            stackView.pop()
+            //stackView.pop()
+            notifyDialog.visible = false
         }
     }
 
@@ -98,7 +99,7 @@ ApplicationWindow {
             anchors.fill: parent
 
             ItemDelegate {
-                text: user.username
+                text: user.Nama
                 width: parent.width
             }
             ItemDelegate {

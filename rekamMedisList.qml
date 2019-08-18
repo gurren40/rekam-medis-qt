@@ -13,6 +13,7 @@ Page {
         repeat: false
         onTriggered: {
             rekamMedisLists.getRekamMedisList()
+            user.getUserInfo()
         }
     }
 
@@ -60,7 +61,7 @@ Page {
                     Label{
                         font.bold: false
                         font.pointSize: 10
-                        text : "Alamat : "+model.Alamat
+                        text : "Dibuat : "+Qt.formatDateTime(Date.fromLocaleString(locale,model.datecreated,"yyyy-MM-dd"),"dddd, d MMMM yyyy")
                         enabled: false
                     }
                 }

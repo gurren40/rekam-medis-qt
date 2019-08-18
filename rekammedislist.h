@@ -18,10 +18,6 @@
 struct RekamMedisItem{
     int ID;
     QString Nama;
-    QString NIK;
-    int Umur;
-    bool JK;
-    QString Alamat;
     double Tegangan;
     double mAs;
     double mGy;
@@ -29,6 +25,7 @@ struct RekamMedisItem{
     double ESAK;
     double DAP;
     QString imageFile;
+    QString datecreated;
 };
 
 class RekamMedisList : public QObject
@@ -36,10 +33,6 @@ class RekamMedisList : public QObject
     Q_OBJECT
     Q_PROPERTY(QVariant ID READ getID NOTIFY itemChanged)
     Q_PROPERTY(QVariant Nama READ getNama NOTIFY itemChanged)
-    Q_PROPERTY(QVariant NIK READ getNIK NOTIFY itemChanged)
-    Q_PROPERTY(QVariant Umur READ getUmur NOTIFY itemChanged)
-    Q_PROPERTY(QVariant JK READ getJK NOTIFY itemChanged)
-    Q_PROPERTY(QVariant Alamat READ getAlamat NOTIFY itemChanged)
     Q_PROPERTY(QVariant Tegangan READ getTegangan NOTIFY itemChanged)
     Q_PROPERTY(QVariant mAs READ getmAs NOTIFY itemChanged)
     Q_PROPERTY(QVariant mGy READ getmGy NOTIFY itemChanged)
@@ -47,6 +40,7 @@ class RekamMedisList : public QObject
     Q_PROPERTY(QVariant ESAK READ getESAK NOTIFY itemChanged)
     Q_PROPERTY(QVariant DAP READ getDAP NOTIFY itemChanged)
     Q_PROPERTY(QVariant imageFile READ getimageFile NOTIFY itemChanged)
+    Q_PROPERTY(QVariant datecreated READ getDateCreated NOTIFY itemChanged)
 
 public:
     explicit RekamMedisList(QObject *parent = nullptr);
@@ -81,10 +75,6 @@ public slots:
     //items
     int getID();
     QString getNama();
-    QString getNIK();
-    int getUmur();
-    bool getJK();
-    QString getAlamat();
     double getTegangan();
     double getmAs();
     double getmGy();
@@ -92,6 +82,7 @@ public slots:
     double getESAK();
     double getDAP();
     QString getimageFile();
+    QString getDateCreated();
 
     //sets & gets
     void setNetworkManager(QNetworkAccessManager *netmgr);
@@ -107,7 +98,7 @@ public slots:
     void gotRekamMedis();
 
     //buat rekam medis
-    void createNewRekamMedis(QVariant Nama, QVariant NIK, QVariant Umur, QVariant JK, QVariant Alamat, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile);
+    void createNewRekamMedis(QVariant Nama, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile);
     void rekamMedisCreated();
 
     //hapus data

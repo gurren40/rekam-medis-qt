@@ -13,5 +13,6 @@
         <file>FilePicker.qml</file>
         <file>utils.js</file>
         <file>SelectFile2.qml</file>
+        <file>profile.qml</file>
     </qresource>
 </RCC>

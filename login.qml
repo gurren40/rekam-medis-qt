@@ -83,7 +83,6 @@ Page {
                             id : password
                             width: parent.width
                             echoMode: TextInput.Password
-                            passwordMaskDelay: 100
                         }
                     }
                 }

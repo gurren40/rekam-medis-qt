@@ -17,88 +17,155 @@ Page {
                 spacing: 10
                 width: parent.width
                 Label {
-                    text: qsTr("Selamat datang di aplikasi rekam medis versi beta")
+                    text: qsTr("Selamat datang di aplikasi rekam medis")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Label {
                     text: qsTr("Mendaftarkan Pengguna Baru")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
-                Label {
-                    text: qsTr("Nama :")
-                }
-                TextField{
-                    id : nama
+                ItemDelegate {
                     width: parent.width
-                }
-                Label {
-                    text: qsTr("Umur :")
-                }
-                TextField{
-                    id : umur
-                    width: parent.width
-                    inputMethodHints: Qt.ImhFormattedNumbersOnly
-                    validator: IntValidator{}
-                }
-                Label {
-                    text: qsTr("Jenis Kelamin :")
-                }
-                ComboBox{
-                    id : jk
-                    textRole: "jk"
-                    displayText: (currentText == 0) ? "Pria" : "Wanita"
-                    width: parent.width
-                    model: ListModel{
-                        ListElement{
-                            name : "Pria"
-                            jk : 0
-                        }
-                        ListElement{
-                            name : "Wanita"
-                            jk : 1
-                        }
-                    }
-
-                    delegate: ItemDelegate{
+                    visible: domainSwiper.checked
+                    contentItem: Column{
                         width: parent.width
-                        text: model.name
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Nama :"
+                        }
+                        TextField{
+                            id : nama
+                            width: parent.width
+                        }
                     }
                 }
-                Label {
-                    text: qsTr("Alamat :")
-                }
-                TextField{
-                    id : alamat
+                ItemDelegate {
                     width: parent.width
+                    visible: domainSwiper.checked
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Umur :"
+                        }
+                        TextField{
+                            id : umur
+                            width: parent.width
+                            validator: IntValidator{}
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    visible: domainSwiper.checked
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Jenis Kelamin :"
+                        }
+                        ComboBox{
+                            id : jk
+                            textRole: "jk"
+                            displayText: (currentText == 0) ? "Pria" : "Wanita"
+                            width: parent.width
+                            model: ListModel{
+                                ListElement{
+                                    name : "Pria"
+                                    jk : 0
+                                }
+                                ListElement{
+                                    name : "Wanita"
+                                    jk : 1
+                                }
+                            }
+
+                            delegate: ItemDelegate{
+                                width: parent.width
+                                text: model.name
+                            }
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    visible: domainSwiper.checked
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Alamat :"
+                        }
+                        TextField{
+                            id : alamat
+                            width: parent.width
+                        }
+                    }
                 }
                 Label {
                     text: qsTr(" ")
                 }
-                Label {
-                    text: qsTr("NIK :")
-                }
-                TextField{
-                    id : nik
+                ItemDelegate {
                     width: parent.width
-                    validator: RegExpValidator { regExp: /[0-9]+/ }
+                    visible: domainSwiper.checked
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "NIK :"
+                        }
+                        TextField{
+                            id : nik
+                            width: parent.width
+                            validator: RegExpValidator { regExp: /[0-9]+/ }
+                        }
+                    }
                 }
-                Label {
-                    text: qsTr("Password :")
-                }
-                TextField{
-                    id : password
+                ItemDelegate {
                     width: parent.width
-                    echoMode: TextInput.Password
-                    passwordMaskDelay: 100
+                    visible: domainSwiper.checked
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Password :"
+                        }
+                        TextField{
+                            id : password
+                            width: parent.width
+                            echoMode: TextInput.Password
+                        }
+                    }
                 }
-                Label {
-                    text: qsTr("Ulangi Password :")
-                }
-                TextField{
-                    id : repeatPassword
+                ItemDelegate {
                     width: parent.width
-                    echoMode: TextInput.Password
-                    passwordMaskDelay: 100
+                    visible: domainSwiper.checked
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
+                            text : "Ulangi Password :"
+                        }
+                        TextField{
+                            id : repeatPassword
+                            width: parent.width
+                            echoMode: TextInput.Password
+                        }
+                    }
                 }
                 Row{
                     anchors.horizontalCenter: parent.horizontalCenter

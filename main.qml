@@ -56,18 +56,24 @@ ApplicationWindow {
     }
 
     header: ToolBar {
+        id : toolBar
         visible: isKeyValid
         contentHeight: toolButton.implicitHeight
 
         ToolButton {
             id: toolButton
-            icon.name: (stackView.depth > 1) ? "chevron_left" : "menu"
+            icon.name: (stackView.depth > 1) || (drawer.visible) ? "chevron_left" : "menu"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             onClicked: {
                 if (stackView.depth > 1) {
                     stackView.pop()
                 } else {
-                    drawer.open()
+                    if(drawer.visible){
+                        drawer.close()
+                    }
+                    else{
+                        drawer.open()
+                    }
                 }
             }
         }
@@ -85,6 +91,7 @@ ApplicationWindow {
             anchors.right: parent.right
             onClicked: {
                 rekamMedisLists.getRekamMedisList()
+                user.getUserInfo()
             }
         }
     }
@@ -92,8 +99,9 @@ ApplicationWindow {
     Drawer {
         id: drawer
         interactive: isKeyValid
-        width: window.width * 0.66
-        height: window.height
+        width: (window.width < window.height) ? parent.width * 0.8 : parent.width * 0.618
+        height: parent.height - toolBar.contentHeight
+        y : toolBar.contentHeight
 
         Column {
             anchors.fill: parent
@@ -101,6 +109,10 @@ ApplicationWindow {
             ItemDelegate {
                 text: user.Nama
                 width: parent.width
+                onClicked: {
+                    stackView.push("profile.qml")
+                    drawer.close()
+                }
             }
             ItemDelegate {
                 text: qsTr("Masukkan Rekam Medis")

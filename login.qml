@@ -15,6 +15,10 @@ Page {
             Column{
                 spacing: 10
                 width: parent.width
+                Label {
+                    text: qsTr(" ")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
                 Image{
                     id : logo
                     source: "/image/logo.png"

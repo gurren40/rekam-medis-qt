@@ -114,7 +114,14 @@ void User::createKey(QVariant NIK, QVariant password)
     QNetworkReply *m_networkAuthKeyReply;
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
-    QString urlString = getDomain()+"/UserAPI/authkey";
+    QString locationString;
+    if(!getAmIAdmin()){
+        locationString = "/UserAPI/authkey";
+    }
+    else {
+        locationString = "/AdminAPI/authkey";
+    }
+    QString urlString = getDomain()+locationString;
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
@@ -147,10 +154,20 @@ void User::createUser(QVariant NIK, QVariant password, QVariant Nama, QVariant U
     QNetworkReply *m_networkCreateUserReply;
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
-    QString urlString = getDomain()+"/UserAPI/create";
+    QString locationString;
+    if(!getAmIAdmin()){
+        locationString = "/UserAPI/create";
+    }
+    else {
+        locationString = "/AdminAPI/create";
+    }
+    QString urlString = getDomain()+locationString;
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
+    if(getAmIAdmin()){
+        data.append("key="+getKey().toUtf8()+"&");
+    }
     data.append("NIK="+NIK.toString().toUtf8()+"&");
     data.append("password="+password.toString().toUtf8()+"&");
     data.append("Nama="+Nama.toString().toUtf8()+"&");
@@ -176,7 +193,14 @@ void User::getUserInfo()
     QNetworkReply *userInfoReply;
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
-    QString urlString = getDomain()+"/UserAPI/get/";
+    QString locationString;
+    if(!getAmIAdmin()){
+        locationString = "/UserAPI/get/";
+    }
+    else {
+        locationString = "/AdminAPI/get/";
+    }
+    QString urlString = getDomain()+locationString;
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
@@ -261,4 +285,22 @@ bool User::getAO()
     else{
         return setting.value("advancedOption").toBool();
     }
+}
+
+bool User::getAmIAdmin()
+{
+    QSettings setting;
+    if(!setting.contains("iamadmin")){
+        return false;
+    }
+    else{
+        return setting.value("iamadmin").toBool();
+    }
+}
+
+void User::setIAmAdmin(bool value)
+{
+    QSettings setting;
+    setting.setValue("iamadmin",value);
+    emit amIAdminSig();
 }

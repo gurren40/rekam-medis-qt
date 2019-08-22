@@ -19,6 +19,7 @@ class User : public QObject
     Q_PROPERTY(QString notify READ getNotify NOTIFY notifySig)
     Q_PROPERTY(bool enableNotify READ enableNotify WRITE setEnableNotify NOTIFY enableNotifySig)
     Q_PROPERTY(bool advancedOption READ getAO WRITE setAO NOTIFY sigAO)
+    Q_PROPERTY(bool amIAdmin READ getAmIAdmin WRITE setIAmAdmin NOTIFY amIAdminSig)
 
     //the data
     Q_PROPERTY(QString NIK READ getNIK WRITE setNIK NOTIFY userDataSig)
@@ -46,6 +47,9 @@ signals:
     void notifySig();
 
     void enableNotifySig();
+
+    //if admin sig
+    void amIAdminSig();
 
     //advanced option
     void sigAO();
@@ -97,6 +101,10 @@ public slots:
     //advancedOption
     void setAO(QVariant value);
     bool getAO();
+
+    //amIadmin
+    bool getAmIAdmin();
+    void setIAmAdmin(bool value);
 
 private:
     QNetworkAccessManager *m_networkManager;

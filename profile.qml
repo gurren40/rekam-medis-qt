@@ -107,6 +107,23 @@ Page {
                         }
                     }
                 }
+                ItemDelegate {
+                    width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: false
+                            font.pointSize: 10
+                            text : "Role"
+                            enabled: false
+                        }
+                        Label{
+                            text: user.amIAdmin ? "Administrator" : "Pasien"
+                            font.bold: true
+                        }
+                    }
+                }
             }
         }
     }

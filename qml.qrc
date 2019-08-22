@@ -14,5 +14,6 @@
         <file>utils.js</file>
         <file>SelectFile2.qml</file>
         <file>profile.qml</file>
+        <file>userList.qml</file>
     </qresource>
 </RCC>

@@ -14,6 +14,9 @@ ApplicationWindow {
     function logOut(){
         drawer.close()
         user.logOut()
+        while (stackView.depth > 1){
+            stackView.pop()
+        }
         stackView.replace("login.qml")
     }
 
@@ -90,7 +93,10 @@ ApplicationWindow {
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.right: parent.right
             onClicked: {
-                rekamMedisLists.getRekamMedisList()
+                if(user.amIAdmin){
+                    userLists.getUserList()
+                }
+                rekamMedisLists.getRekamMedisList(0)
                 user.getUserInfo()
             }
         }
@@ -121,8 +127,18 @@ ApplicationWindow {
                     stackView.push("createRM.qml")
                     drawer.close()
                 }
-                visible: user.advancedOption
+                visible: user.advancedOption && !user.amIAdmin
             }
+            ItemDelegate{
+                text: qsTr("Buat Administrator Baru")
+                width: parent.width
+                onClicked: {
+                    stackView.push("register.qml")
+                    drawer.close()
+                }
+                visible: user.amIAdmin
+            }
+
             ItemDelegate {
                 text: qsTr("Hitung Dosis")
                 width: parent.width

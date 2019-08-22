@@ -56,6 +56,18 @@ Page {
                         }
                     }
                 }
+                ItemDelegate{
+                    width: parent.width
+                    visible: domainSwiper.checked
+                    contentItem: CheckBox{
+                        width: parent.width
+                        checked: user.amIAdmin
+                        text: "Login As Admin"
+                        onClicked: {
+                            user.amIAdmin = checked
+                        }
+                    }
+                }
                 ItemDelegate {
                     width: parent.width
                     contentItem: Column{
@@ -115,8 +127,8 @@ Page {
                     Button{
                         id : register
                         text: "Register"
-                        onClicked: stackView.replace("register.qml")
-                        visible: user.advancedOption
+                        onClicked: stackView.push("register.qml")
+                        visible: (user.advancedOption && !user.amIAdmin)
                     }
                 }
                 Label{
@@ -127,7 +139,10 @@ Page {
                     id : domainSwiper
                     text: "Advanced Option"
                     checked: user.advancedOption
-                    onClicked: user.advancedOption = checked
+                    onClicked: {
+                        user.amIAdmin = false
+                        user.advancedOption = checked
+                    }
                 }
             }
         }
@@ -136,7 +151,14 @@ Page {
             repeat: false
             running: true
             triggeredOnStart: {
-                window.isKeyValid ? stackView.replace("rekamMedisList.qml") : none
+                if(window.isKeyValid){
+                    if(user.amIAdmin){
+                        stackView.replace("userList.qml")
+                    }
+                    else{
+                        stackView.replace("rekamMedisList.qml")
+                    }
+                }
             }
         }
     }

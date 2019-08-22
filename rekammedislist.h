@@ -90,7 +90,7 @@ public slots:
     void setRekamMedis(QJsonObject jsonObj);
 
     //ambil list rekam medis
-    void getRekamMedisList();
+    void getRekamMedisList(QVariant userID);
     void gotRekamMedisList();
 
     //ambil rekam medis

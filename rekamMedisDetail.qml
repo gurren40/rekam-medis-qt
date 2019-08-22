@@ -8,7 +8,12 @@ Page {
     verticalPadding: 20
     title: qsTr("Detail Rekam Medis")
     property int itemID: 0
-    property string jenisKelamin: (!rekamMedisLists.JK) ? "Pria" : "Wanita"
+    property string nik: ""
+    property string nama: ""
+    property int umur: 0
+    property bool jk: false
+    property string alamat: ""
+    property string jenisKelamin: (!rekamMedisDetail.jk) ? "Pria" : "Wanita"
     Timer{
         interval: 1000
         repeat: false
@@ -28,6 +33,108 @@ Page {
             Column{
                 spacing: 10
                 width: parent.width
+                //data pribadi pengguna, ditampilkan jika admin
+                Column{
+                    width: parent.width
+                    spacing: 10
+                    visible: user.amIAdmin
+                    Label {
+                        text: "Profil Pasien"
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    ItemDelegate {
+                        width: parent.width
+                        contentItem: Column{
+                            width: parent.width
+                            spacing: 2
+                            Label{
+                                font.bold: false
+                                font.pointSize: 10
+                                text : "Nama"
+                                enabled: false
+                            }
+                            Label{
+                                text: rekamMedisDetail.nama
+                                font.bold: true
+                            }
+                        }
+                    }
+                    ItemDelegate {
+                        width: parent.width
+                        contentItem: Column{
+                            width: parent.width
+                            spacing: 2
+                            Label{
+                                font.bold: false
+                                font.pointSize: 10
+                                text : "NIK"
+                                enabled: false
+                            }
+                            Label{
+                                text: rekamMedisDetail.nik
+                                font.bold: true
+                            }
+                        }
+                    }
+                    ItemDelegate {
+                        width: parent.width
+                        contentItem: Column{
+                            width: parent.width
+                            spacing: 2
+                            Label{
+                                font.bold: false
+                                font.pointSize: 10
+                                text : "Umur"
+                                enabled: false
+                            }
+                            Label{
+                                text: rekamMedisDetail.umur
+                                font.bold: true
+                            }
+                        }
+                    }
+                    ItemDelegate {
+                        width: parent.width
+                        contentItem: Column{
+                            width: parent.width
+                            spacing: 2
+                            Label{
+                                font.bold: false
+                                font.pointSize: 10
+                                text : "Jenis Kelamin"
+                                enabled: false
+                            }
+                            Label{
+                                text: rekamMedisDetail.jenisKelamin
+                                font.bold: true
+                            }
+                        }
+                    }
+                    ItemDelegate {
+                        width: parent.width
+                        contentItem: Column{
+                            width: parent.width
+                            spacing: 2
+                            Label{
+                                font.bold: false
+                                font.pointSize: 10
+                                text : "Alamat"
+                                enabled: false
+                            }
+                            Label{
+                                text: rekamMedisDetail.alamat
+                                font.bold: true
+                            }
+                        }
+                    }
+                    Label{
+                        width: parent.width
+                        text: " "
+                    }
+                }
+
+                //data pemerikasaan
                 Label {
                     text: "Data Pemeriksaan"
                     font.bold: true

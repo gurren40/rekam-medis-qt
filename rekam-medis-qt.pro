@@ -23,7 +23,9 @@ SOURCES += \
         rekammedisfilter.cpp \
         rekammedislist.cpp \
         rekammedismodel.cpp \
-        user.cpp
+        user.cpp \
+        userlist.cpp \
+        usermodel.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc
@@ -43,7 +45,9 @@ HEADERS += \
     rekammedisfilter.h \
     rekammedislist.h \
     rekammedismodel.h \
-    user.h
+    user.h \
+    userlist.h \
+    usermodel.h
 
 contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     ANDROID_EXTRA_LIBS = \

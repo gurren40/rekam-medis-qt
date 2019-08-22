@@ -97,12 +97,24 @@ void RekamMedisList::setRekamMedis(QJsonObject jsonObj)
     emit itemChanged();
 }
 
-void RekamMedisList::getRekamMedisList()
+void RekamMedisList::getRekamMedisList(QVariant userID)
 {
     QNetworkReply *rekamMedisListReply;
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
-    QString urlString = user->getDomain()+"/RekamMedisAPI/getAll";
+    QString locationString;
+    if(userID == 0){
+        if(!user->getAmIAdmin()){
+            locationString = "/RekamMedisAPI/getAll";
+        }
+        else {
+            locationString = "/RekamMedisAPI";
+        }
+    }
+    else {
+        locationString = "/RekamMedisAPI/getByUser/"+userID.toString();
+    }
+    QString urlString = user->getDomain()+locationString;
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
@@ -117,9 +129,11 @@ void RekamMedisList::gotRekamMedisList()
     QByteArray replyData = rekamMedisListReply->readAll();
     QJsonDocument jsonDoc(QJsonDocument::fromJson(replyData));
     if(jsonDoc.object().contains("status")){
-        emit notify(jsonDoc.object()["status"].toString());
-        if(jsonDoc.object()["status"].toString() == "expired"){
-            user->delKey();
+        if(jsonDoc.object()["status"].toString() != "nothing"){
+            emit notify(jsonDoc.object()["status"].toString());
+            if(jsonDoc.object()["status"].toString() == "expired"){
+                user->delKey();
+            }
         }
     }
     else if(jsonDoc.array().size()>0){
@@ -236,6 +250,7 @@ void RekamMedisList::clearItemsData()
 void RekamMedisList::setUser(User *value)
 {
     user = value;
+    connect(this,&RekamMedisList::notify,user,&User::notify);
 }
 
 int RekamMedisList::getID()

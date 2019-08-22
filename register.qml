@@ -21,12 +21,11 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Label {
-                    text: qsTr("Mendaftarkan Pengguna Baru")
+                    text: user.amIAdmin ? qsTr("Mendaftarkan Admin Baru") : qsTr("Mendaftarkan Pengguna Baru")
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -43,7 +42,6 @@ Page {
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -61,7 +59,6 @@ Page {
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -95,7 +92,6 @@ Page {
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -115,7 +111,6 @@ Page {
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -133,7 +128,6 @@ Page {
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -151,7 +145,6 @@ Page {
                 }
                 ItemDelegate {
                     width: parent.width
-                    visible: domainSwiper.checked
                     contentItem: Column{
                         width: parent.width
                         spacing: 2
@@ -195,9 +188,9 @@ Page {
                         }
                     }
                     Button{
-                        id : login
-                        text: "Login"
-                        onClicked: stackView.replace("login.qml")
+                        id : cancel
+                        text: "Cancel"
+                        onClicked: stackView.pop()
                     }
                 }
             }

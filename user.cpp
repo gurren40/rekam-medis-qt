@@ -104,7 +104,7 @@ QString User::getDomain()
         return setting.value("domain").toString();
     }
     else{
-        return "http://rekam-medis.southeastasia.cloudapp.azure.com";
+        return "https://rekam-medis504.000webhostapp.com";
     }
 }
 
@@ -149,31 +149,32 @@ void User::keyCreated()
     m_networkAuthKeyReply->deleteLater();
 }
 
-void User::createUser(QVariant NIK, QVariant password, QVariant Nama, QVariant Umur, QVariant JK, QVariant Alamat)
+void User::createUser(QVariant NIK, QVariant password, QVariant Nama, QVariant Umur, QVariant JK, QVariant Alamat, QVariant Role)
 {
     QNetworkReply *m_networkCreateUserReply;
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QString locationString;
-    if(!getAmIAdmin()){
-        locationString = "/UserAPI/create";
-    }
-    else {
-        locationString = "/AdminAPI/create";
-    }
+    locationString = "/AdminAPI/create";
     QString urlString = getDomain()+locationString;
     QUrl url(urlString);
     request.setUrl(url);
     QByteArray data;
-    if(getAmIAdmin()){
-        data.append("key="+getKey().toUtf8()+"&");
+    QString roleval;
+    if(Role.toBool()){
+        roleval = "1";
     }
+    else {
+        roleval = "0";
+    }
+    data.append("key="+getKey().toUtf8()+"&");
     data.append("NIK="+NIK.toString().toUtf8()+"&");
     data.append("password="+password.toString().toUtf8()+"&");
     data.append("Nama="+Nama.toString().toUtf8()+"&");
     data.append("Umur="+Umur.toString().toUtf8()+"&");
     data.append("JK="+JK.toString().toUtf8()+"&");
-    data.append("Alamat="+Alamat.toString().toUtf8());
+    data.append("Alamat="+Alamat.toString().toUtf8()+"&");
+    data.append("Role="+roleval);
     m_networkCreateUserReply = m_networkManager->post(request,data);
     connect(m_networkCreateUserReply,&QNetworkReply::finished,this,&User::userCreated);
 }

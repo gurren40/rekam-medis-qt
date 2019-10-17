@@ -175,7 +175,7 @@ void RekamMedisList::gotRekamMedis()
     rekamMedisReply->deleteLater();
 }
 
-void RekamMedisList::createNewRekamMedis(QVariant Nama, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile)
+void RekamMedisList::createNewRekamMedis(QVariant userID, QVariant Nama, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile)
 {
     QNetworkReply *createRekamMedisReply;
     QNetworkRequest request;
@@ -192,6 +192,7 @@ void RekamMedisList::createNewRekamMedis(QVariant Nama, QVariant Tegangan, QVari
         request.setUrl(url);
         QByteArray data;
         data.append("key="+user->getKey().toUtf8()+"&");
+        data.append("userID="+userID.toString().toUtf8()+"&");
         data.append("Nama="+Nama.toString().toUtf8()+"&");
         data.append("Tegangan="+Tegangan.toString().toUtf8()+"&");
         data.append("mAs="+mAs.toString().toUtf8()+"&");

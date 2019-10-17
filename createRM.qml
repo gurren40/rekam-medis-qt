@@ -18,7 +18,23 @@ Page {
                 spacing: 10
                 width: parent.width
                 Label {
-                    text: qsTr("Nama :")
+                    text: qsTr("Pasien :")
+                }
+                ComboBox{
+                    property string displayName: "Pilih Pasien"
+                    id : userID
+                    textRole: "ID"
+                    displayText: displayName
+                    width: parent.width
+                    model: userFilter
+                    delegate: ItemDelegate{
+                        width: parent.width
+                        text: model.Nama
+                        onClicked: userID.displayName = model.Nama
+                    }
+                }
+                Label {
+                    text: qsTr("Nama Rekam Medis :")
                 }
                 TextField{
                     id : nama
@@ -112,7 +128,7 @@ Page {
                         id: buatButton
                         text: "Buat"
                         onClicked: {
-                            rekamMedisLists.createNewRekamMedis(nama.text,tegangan.text,mAs.text,mGy.text,outputRadiasi.text,esak.text,dap.text,gambar.text)
+                            rekamMedisLists.createNewRekamMedis(userID.currentText,nama.text,tegangan.text,mAs.text,mGy.text,outputRadiasi.text,esak.text,dap.text,gambar.text)
                             stackView.pop()
                         }
                     }

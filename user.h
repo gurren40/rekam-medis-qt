@@ -83,7 +83,7 @@ public slots:
     void keyCreated();
 
     //createuser
-    void createUser(QVariant NIK, QVariant password, QVariant Nama, QVariant Umur, QVariant JK, QVariant Alamat);
+    void createUser(QVariant NIK, QVariant password, QVariant Nama, QVariant Umur, QVariant JK, QVariant Alamat, QVariant Role);
     void userCreated();
 
     //getUserInfo

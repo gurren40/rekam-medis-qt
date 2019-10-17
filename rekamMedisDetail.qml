@@ -148,7 +148,7 @@ Page {
                         Label{
                             font.bold: false
                             font.pointSize: 10
-                            text : "Nama"
+                            text : "Nama Rekam Medis"
                             enabled: false
                         }
                         Label{

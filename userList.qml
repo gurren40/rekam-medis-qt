@@ -71,7 +71,7 @@ Page {
                     if(listViewElement.currentIndex != index){
                         listViewElement.currentIndex = index
                     }
-                    console.log(model.ID)
+                    console.log(model.NIK)
                     stackView.push("rekamMedisList.qml",{userID:model.ID,nik:model.NIK,nama:model.Nama,umur:model.Umur,jk:model.JK,alamat:model.Alamat})
                 }
             }

@@ -98,7 +98,7 @@ public slots:
     void gotRekamMedis();
 
     //buat rekam medis
-    void createNewRekamMedis(QVariant Nama, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile);
+    void createNewRekamMedis(QVariant userID, QVariant Nama, QVariant Tegangan, QVariant mAs, QVariant mGy, QVariant OutputRadiasi, QVariant ESAK, QVariant DAP, QVariant ImageFile);
     void rekamMedisCreated();
 
     //hapus data

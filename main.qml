@@ -127,10 +127,10 @@ ApplicationWindow {
                     stackView.push("createRM.qml")
                     drawer.close()
                 }
-                visible: user.advancedOption && !user.amIAdmin
+                visible: user.amIAdmin
             }
             ItemDelegate{
-                text: qsTr("Buat Administrator Baru")
+                text: qsTr("Buat Akun Baru")
                 width: parent.width
                 onClicked: {
                     stackView.push("register.qml")

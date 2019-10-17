@@ -134,6 +134,23 @@ Page {
                         Label{
                             font.bold: true
                             font.pointSize: 10
+                            text : "Sebagai Admin :"
+                        }
+                        SwitchDelegate{
+                            id : role
+                            width: parent.width
+                            checked: false
+                        }
+                    }
+                }
+                ItemDelegate {
+                    width: parent.width
+                    contentItem: Column{
+                        width: parent.width
+                        spacing: 2
+                        Label{
+                            font.bold: true
+                            font.pointSize: 10
                             text : "Password :"
                         }
                         TextField{
@@ -177,7 +194,7 @@ Page {
                                     notifyDialog.open()
                                 }
                                 else{
-                                    user.createUser(nik.text,password.text,nama.text,umur.text,jk.currentText,alamat.text)
+                                    user.createUser(nik.text,password.text,nama.text,umur.text,jk.currentText,alamat.text,role.checked)
                                     stackView.pop()
                                 }
                             }

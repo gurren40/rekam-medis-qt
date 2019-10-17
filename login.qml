@@ -128,7 +128,7 @@ Page {
                         id : register
                         text: "Register"
                         onClicked: stackView.push("register.qml")
-                        visible: (user.advancedOption && !user.amIAdmin)
+                        visible: false //(user.advancedOption && !user.amIAdmin)
                     }
                 }
                 Label{
